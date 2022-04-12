@@ -26,7 +26,9 @@ const App = () => {
   ]);
 
   const saveExpense = (newExpense) => {
-    setExpenses([...expenses, newExpense]);
+    setExpenses((previousExpenses) => {
+      return [newExpense, ...previousExpenses];
+    });
   };
 
   return (

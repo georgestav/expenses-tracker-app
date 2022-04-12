@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ExpenseForm.scss";
 
-const ExpenseForm = ({ onformSave }) => {
+const ExpenseForm = ({ onformSave, formToggle }) => {
   const [enteredInputs, setEnteredInputs] = useState({
     title: "",
     amount: "",
@@ -21,6 +21,7 @@ const ExpenseForm = ({ onformSave }) => {
     event.preventDefault();
     try {
       enteredInputs.date = new Date(enteredInputs.date);
+      enteredInputs.amount = +enteredInputs.amount;
       onformSave(enteredInputs);
       setEnteredInputs({ title: "", amount: "", date: "" });
     } catch (error) {
@@ -46,7 +47,7 @@ const ExpenseForm = ({ onformSave }) => {
             type="number"
             name="amount"
             min="0"
-            step="0.1"
+            step="0.01"
             value={enteredInputs.amount}
             onChange={changeHandler}
           />
@@ -64,6 +65,9 @@ const ExpenseForm = ({ onformSave }) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={formToggle}>
+          Cancel
+        </button>
         <button type="submit">Add expense</button>
       </div>
     </form>
